@@ -36,12 +36,14 @@ namespace HairDresserApi
             //});
             services.AddDbContext<SalonDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:salonBase"]));
             services.AddScoped<ISeedClient, SeedClient>();
+            services.AddScoped<ISeedEmployee, SeedEmployee>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISeedClient seedClient)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISeedClient seedClient, ISeedEmployee seedEmployee)
         {
             seedClient.Seed();
+            seedEmployee.Seed();
             //if (env.IsDevelopment())
             //{
             //    app.UseDeveloperExceptionPage();
